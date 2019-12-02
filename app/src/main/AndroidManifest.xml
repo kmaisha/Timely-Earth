@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".listprojectsActivity"
+            android:label="@string/title_activity_listprojects"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".StartupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +27,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+    <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="com.example.exportcsv.fileprovider"
+        android:grantUriPermissions="true"
+        android:exported="false">
+        <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/provider_paths"/>
+    </provider>
+
     </application>
 
 </manifest>

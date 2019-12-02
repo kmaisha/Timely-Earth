@@ -10,38 +10,40 @@
         android:id="@+id/quote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="176dp"
-        android:text='"quote"'
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/montserrat"
+        android:text="quote"
+        android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="189dp"
-        android:layout_height="222dp"
+        android:layout_width="330dp"
+        android:layout_height="305dp"
         android:layout_marginStart="141dp"
-        android:layout_marginTop="99dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="142dp"
+        android:background="@drawable/josh_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quote"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/button"
+    <ImageButton
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="305dp"
-        android:layout_marginBottom="101dp"
-        android:text="Let's Get Started"
+        android:background="@color/colorAccent"
+        android:onClick="whenButtonClicked"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="129dp" />
+        app:srcCompat="@drawable/start" />
 </androidx.constraintlayout.widget.ConstraintLayout>
