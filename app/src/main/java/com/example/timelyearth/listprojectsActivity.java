@@ -49,40 +49,40 @@ public class listprojectsActivity extends Activity implements AdapterView.OnItem
         listview.setOnItemClickListener(this);
     }
 
-    public void addItems(View v) {
-        listItems.add("Project "+clickCounter++);
-        String projectName = "Project "+clickCounter++;
-        Project p = new Project(projectName);
-        h.put(projectName, p);
-        adapter.notifyDataSetChanged();
-    }
+//    public void addItems(View v) {
+//        listItems.add("Project "+clickCounter++);
+//        String projectName = "Project "+clickCounter++;
+//        Project p = new Project(projectName);
+//        h.put(projectName, p);
+//        adapter.notifyDataSetChanged();
+//    }
 
-    //Export to CSV
-    public void export(View view){
-        StringBuilder data = new StringBuilder();
-        data.append("Time.Distance");
-        for(int i = 0; i<5; i++) {
-            data.append("\n" + String.valueOf(i) + "." + String.valueOf(i * i));
-        }
-        try{
-            FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
-            out.write((data.toString()).getBytes());
-            out.close();
-
-            Context context = getApplicationContext();
-            File filelocation = new File(getFilesDir(), "data.csv");
-            Uri path = FileProvider.getUriForFile(context, "com.example.exportcsv.fileprovider", filelocation);
-            Intent fileIntent = new Intent(Intent.ACTION_SEND);
-            fileIntent.setType("text/csv");
-            fileIntent.putExtra(Intent.EXTRA_SUBJECT, "DATA");
-            fileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            fileIntent.putExtra(Intent.EXTRA_STREAM, path);
-            startActivity(Intent.createChooser(fileIntent, "Send mail"));
-        }
-         catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    //Export to CSV
+//    public void export(View view){
+//        StringBuilder data = new StringBuilder();
+//        data.append("Time.Distance");
+//        for(int i = 0; i<5; i++) {
+//            data.append("\n" + String.valueOf(i) + "." + String.valueOf(i * i));
+//        }
+//        try{
+//            FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
+//            out.write((data.toString()).getBytes());
+//            out.close();
+//
+//            Context context = getApplicationContext();
+//            File filelocation = new File(getFilesDir(), "data.csv");
+//            Uri path = FileProvider.getUriForFile(context, "com.example.exportcsv.fileprovider", filelocation);
+//            Intent fileIntent = new Intent(Intent.ACTION_SEND);
+//            fileIntent.setType("text/csv");
+//            fileIntent.putExtra(Intent.EXTRA_SUBJECT, "DATA");
+//            fileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            fileIntent.putExtra(Intent.EXTRA_STREAM, path);
+//            startActivity(Intent.createChooser(fileIntent, "Send mail"));
+//        }
+//         catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int id, long position) {
