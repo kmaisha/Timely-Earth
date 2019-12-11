@@ -24,14 +24,14 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openProjectsActivity();
+                listprojectsActivity();
             }
 
         });
         chronometer = findViewById(R.id.chronometer);
     }
-    private void openProjectsActivity() {
-        Intent intent = new Intent(this, Projects.class);
+    private void listprojectsActivity() {
+        Intent intent = new Intent(this, listprojectsActivity.class);
         startActivity(intent);
     }
     public void startChronometer(View v){

@@ -1,88 +1,74 @@
 package com.example.timelyearth;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
-//public class listprojectsActivity extends AppCompatActivity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.main);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = findViewById(R.id.addProject);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//    }
 
-//}
-
-public class listprojectsActivity extends ListActivity {
-    //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
+public class listprojectsActivity extends Activity implements AdapterView.OnItemClickListener {
+    //List array strings and view adapter
     ArrayList<String> listItems=new ArrayList<String>();
-
-    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
+    Hashtable<String, Project> h = new Hashtable<String, Project>();
     ArrayAdapter<String> adapter;
-
-    //RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
     int clickCounter=0;
 
+//    @Override
+//    public void onCreate(Bundle icicle) {
+//        super.onCreate(icicle);
+//        setContentView(R.layout.activity_listprojects);
+//        adapter=new ArrayAdapter<String>(this,
+//               android.R.layout.simple_list_item_1,
+//                listItems);
+//        setListAdapter(adapter);
+//    }
+
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_listprojects);
-        adapter=new ArrayAdapter<String>(this,
-               android.R.layout.simple_list_item_1,
-                listItems);
-        setListAdapter(adapter);
+
+        //* *EDIT* *
+        ListView listview = (ListView) findViewById(R.id.listView1);
+        listview.setOnItemClickListener(this);
     }
 
-    //METHOD WHICH WILL HANDLE DYNAMIC INSERTION
     public void addItems(View v) {
         listItems.add("Project "+clickCounter++);
+        String projectName = "Project "+clickCounter++;
+        Project p = new Project(projectName);
+        h.put(projectName, p);
         adapter.notifyDataSetChanged();
     }
 
+    //Export to CSV
     public void export(View view){
-        //generate data
         StringBuilder data = new StringBuilder();
         data.append("Time.Distance");
         for(int i = 0; i<5; i++) {
             data.append("\n" + String.valueOf(i) + "." + String.valueOf(i * i));
         }
         try{
-            //saving file into device
             FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
             out.write((data.toString()).getBytes());
             out.close();
 
-            //exporting
             Context context = getApplicationContext();
             File filelocation = new File(getFilesDir(), "data.csv");
             Uri path = FileProvider.getUriForFile(context, "com.example.exportcsv.fileprovider", filelocation);
@@ -96,5 +82,17 @@ public class listprojectsActivity extends ListActivity {
          catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int id, long position) {
+        Log.i("HelloListView", "You clicked Item: " + id + " at position:" + position);
+        // Then you start a new Activity via Intent
+        Intent intent = new Intent();
+        intent.setClass(this, ListItemDetail.class);
+        intent.putExtra("position", position);
+        // Or / And
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 }
