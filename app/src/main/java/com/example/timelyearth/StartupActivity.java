@@ -1,23 +1,10 @@
 package com.example.timelyearth;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Random;
 
 
@@ -28,8 +15,6 @@ public class StartupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup);
-
-
 
       //Generate random number between 1 and 5
         final int min = 1;
@@ -69,9 +54,8 @@ public class StartupActivity extends AppCompatActivity {
     }
 
     public void whenButtonClicked(View view) {
-        //Transition to Main Activity
+        //Transition to listprojectActivity
         Intent my_intent = new Intent(getBaseContext(), listprojectsActivity.class);
         startActivity(my_intent);
     }
-
 }
