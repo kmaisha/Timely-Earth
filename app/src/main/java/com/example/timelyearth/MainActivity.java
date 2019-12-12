@@ -14,12 +14,15 @@ import android.widget.Chronometer;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private Chronometer chronometer;
     private long offsetPause;
     private boolean running;
     private Button button;
+
+    public long saveTime;
 
 
 
@@ -53,13 +56,26 @@ public class MainActivity extends AppCompatActivity {
             running = true;
         }
     }
+
+    String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(saveTime),
+            TimeUnit.MILLISECONDS.toMinutes(saveTime) % TimeUnit.HOURS.toMinutes(1),
+            TimeUnit.MILLISECONDS.toSeconds(saveTime) % TimeUnit.MINUTES.toSeconds(1));
+
     public void pauseChronometer(View v){
         if(running){
             chronometer.stop();
             offsetPause = SystemClock.elapsedRealtime() - chronometer.getBase();
+            saveTime = SystemClock.elapsedRealtime() - chronometer.getBase();
             running = false;
+
+            hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(saveTime),
+                    TimeUnit.MILLISECONDS.toMinutes(saveTime) % TimeUnit.HOURS.toMinutes(1),
+                    TimeUnit.MILLISECONDS.toSeconds(saveTime) % TimeUnit.MINUTES.toSeconds(1));
         }
     }
+
+
+
     public void resetChronometer(View v){
         chronometer.stop();
         chronometer.setBase(SystemClock.elapsedRealtime());
@@ -69,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    int elapsedMillis = 30;
+//    public long elapsedMillis = saveTime;
 
     //Export to CSV
     public void export(View view){
@@ -79,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 //        for(int i = 0; i < 5; i++) {
 //            data.append("\n" + String.valueOf(i) + "." + String.valueOf(i * i));
 //        }
-        data.append("\n" + String.valueOf(elapsedMillis) );
+        data.append("\n" + hms);
         try{
             FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
             out.write((data.toString()).getBytes());
