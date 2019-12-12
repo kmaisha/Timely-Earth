@@ -22,10 +22,15 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        com.android.animatedgif.Utils.GifImageView gifImageView = (com.android.animatedgif.Utils.GifImageView) findViewById(R.id.GifImageView);
+        gifImageView.setGifImageResource(R.drawable.earthspinning);
+
         button = (Button)findViewById(R.id.id);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +67,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+    float elapsedMillis = 30;
+
     //Export to CSV
     public void export(View view){
         StringBuilder data = new StringBuilder();
-        data.append("Time.Distance");
-        for(int i = 0; i<5; i++) {
-            data.append("\n" + String.valueOf(i) + "." + String.valueOf(i * i));
-        }
+        data.append("Time Spent On First Sprint");
+//        for(int i = 0; i < 5; i++) {
+//            data.append("\n" + String.valueOf(i) + "." + String.valueOf(i * i));
+//        }
+        data.append("\n" + String.valueOf(elapsedMillis));
         try{
             FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
             out.write((data.toString()).getBytes());

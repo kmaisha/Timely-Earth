@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#fff">
 
     <Chronometer
         android:id="@+id/chronometer"
@@ -15,8 +16,10 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.652" />
 
     <Button
         android:id="@+id/id"
@@ -64,6 +67,7 @@
             android:layout_weight="1"
             android:onClick="resetChronometer"
             android:text="Stop" />
+
     </LinearLayout>
 
     <Button
@@ -73,6 +77,16 @@
         android:layout_marginTop="16dp"
         android:onClick="export"
         android:text="EXPORT"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.android.animatedgif.Utils.GifImageView
+        android:id="@+id/GifImageView"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="156dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
