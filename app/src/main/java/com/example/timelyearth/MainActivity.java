@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //change gif name
         com.android.animatedgif.Utils.GifImageView gifImageView = (com.android.animatedgif.Utils.GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.earthspinning);
 
@@ -69,16 +70,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    float elapsedMillis = 30;
+    int elapsedMillis = 30;
 
     //Export to CSV
     public void export(View view){
         StringBuilder data = new StringBuilder();
-        data.append("Time Spent On First Sprint");
+        data.append("Time Spent Working");
 //        for(int i = 0; i < 5; i++) {
 //            data.append("\n" + String.valueOf(i) + "." + String.valueOf(i * i));
 //        }
-        data.append("\n" + String.valueOf(elapsedMillis));
+        data.append("\n" + String.valueOf(elapsedMillis) );
         try{
             FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
             out.write((data.toString()).getBytes());
