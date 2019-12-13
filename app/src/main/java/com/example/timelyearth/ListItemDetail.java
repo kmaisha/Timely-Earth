@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class ListItemDetail extends Activity {
 
     @Override
@@ -24,11 +26,19 @@ public class ListItemDetail extends Activity {
         int position = intent.getIntExtra("position", 0);
 
         // Here we turn your string.xml in an array
-        String[] myKeys = getResources().getStringArray(R.array.sections);
+       String[] myKeys = getResources().getStringArray(R.array.sections);
+       TextView myTextView = (TextView) findViewById(R.id.id);
+       myTextView.setText(myKeys[position]);
 
-        TextView myTextView = (TextView) findViewById(R.id.id);
-        myTextView.setText(myKeys[position]);
-
+//
+//        ArrayList<String> ar = new ArrayList<String>();
+//        String s1 ="Test1";
+//        String s2 ="Test2";
+//        String s3 ="Test3";
+//        ar.add(s1);
+//        ar.add(s2);
+//        ar.add(s3);
+//        myTextView.setText(ar.get(0));
 
     }
 

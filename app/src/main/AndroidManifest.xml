@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".listprojectsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_listprojects"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".StartupActivity">

@@ -21,17 +21,17 @@ public class MainActivity extends AppCompatActivity {
     private long offsetPause;
     private boolean running;
     private Button button;
-<<<<<<< HEAD
+
    // public int elapsedMillis;
     public long elapsedMillis;
     public long elapsedSec;
     public long elapsedMin;
     public long elapsedHour;
-=======
+
 
     public long saveTime;
 
->>>>>>> master
+
 
 
     @Override
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         if(running){
             chronometer.stop();
             offsetPause = SystemClock.elapsedRealtime() - chronometer.getBase();
-<<<<<<< HEAD
+
             if (elapsedMillis > 60000) {
 
             }
@@ -83,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
             elapsedHour = elapsedMin / 60;
 
           // elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-=======
+
             saveTime = SystemClock.elapsedRealtime() - chronometer.getBase();
->>>>>>> master
+
             running = false;
 
             hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(saveTime),
@@ -105,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-<<<<<<< HEAD
+
 
    // int elapsedMillis = 30;
-=======
+
 //    public long elapsedMillis = saveTime;
->>>>>>> master
+
 
     //Export to CSV
     public void export(View view){
@@ -119,13 +119,13 @@ public class MainActivity extends AppCompatActivity {
 //        for(int i = 0; i < 5; i++) {
 //            data.append("\n" + String.valueOf(i) + "." + String.valueOf(i * i));
 //        }
-<<<<<<< HEAD
+
     data.append("\n" + String.valueOf(elapsedMin + ":" + elapsedSec + ":" + elapsedMillis) );
         //data.append("\n" + elapsedMillis);
 
-=======
+
         data.append("\n" + hms);
->>>>>>> master
+
         try{
             FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
             out.write((data.toString()).getBytes());
