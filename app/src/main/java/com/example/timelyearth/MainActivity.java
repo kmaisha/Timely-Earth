@@ -11,9 +11,11 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.EditText;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
     public long saveTime;
 
+    public Double payRate;
+
+
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
 
     @Override
@@ -44,7 +50,48 @@ public class MainActivity extends AppCompatActivity {
 
         });
         chronometer = findViewById(R.id.chronometer);
+
+
+        final EditText rate = findViewById(R.id.pr);
+    rate.setText("0");
+    Thread t = new Thread() {
+    @Override
+    public void run() {
+
+        while (!isInterrupted()) {
+
+            try {
+                Thread.sleep(1000);  //1000ms = 1 sec
+
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (rate.getText().toString().equals("")) {
+
+                        }
+                        else {
+                            payRate = Double.parseDouble(rate.getText().toString());
+                        }
+                    }
+                });
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
+};
+        t.start();
+
+}
+    //    payRate = Double.parseDouble(rate.getText().toString());
+//            String pRate = rate.getText().toString();
+//            payRate = Float.valueOf(pRate);
+
+        //float payRate = 35;
+
     private void listprojectsActivity() {
         Intent intent = new Intent(this, listprojectsActivity.class);
         startActivity(intent);
@@ -78,14 +125,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void resetChronometer(View v){
         chronometer.stop();
+        saveTime = SystemClock.elapsedRealtime() - chronometer.getBase();
+        hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(saveTime),
+                TimeUnit.MILLISECONDS.toMinutes(saveTime) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(saveTime) % TimeUnit.MINUTES.toSeconds(1));
+
         chronometer.setBase(SystemClock.elapsedRealtime());
         offsetPause = 0;
         running = false;
 
+
     }
 
-
-//    public long elapsedMillis = saveTime;
 
     //Export to CSV
     public void export(View view){
@@ -95,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
 //            data.append("\n" + String.valueOf(i) + "." + String.valueOf(i * i));
 //        }
         data.append("\n" + hms);
+        data.append("\n" + "Pay: (" + payRate + "/hr)");
+        data.append("\n" + "$" + Float.valueOf(decimalFormat.format( payRate  * ((float) saveTime / 3600000))));
         try{
             FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
             out.write((data.toString()).getBytes());
