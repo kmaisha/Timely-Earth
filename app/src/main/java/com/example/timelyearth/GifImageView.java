@@ -3,12 +3,9 @@ package com.android.animatedgif.Utils;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Movie;
-import android.net.Uri;
 import android.os.SystemClock;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class GifImageView extends View {
@@ -81,12 +78,5 @@ public class GifImageView extends View {
         init();
     }
 
-    public void setGifImageUri(Uri uri) {
-        try {
-            mInputStream = mContext.getContentResolver().openInputStream(uri);
-            init();
-        } catch (FileNotFoundException e) {
-            Log.e("GIfImageView", "File not found");
-        }
-    }
+
 }

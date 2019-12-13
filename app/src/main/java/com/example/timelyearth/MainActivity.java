@@ -2,7 +2,6 @@ package com.example.timelyearth;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,7 +10,6 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.concurrent.TimeUnit;
@@ -21,28 +19,22 @@ public class MainActivity extends AppCompatActivity {
     private long offsetPause;
     private boolean running;
     private Button button;
-
-   // public int elapsedMillis;
     public long elapsedMillis;
     public long elapsedSec;
     public long elapsedMin;
     public long elapsedHour;
-
-
     public long saveTime;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //change gif name
+        //Set gif to be used
         com.android.animatedgif.Utils.GifImageView gifImageView = (com.android.animatedgif.Utils.GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.earthspinning);
 
+        //Display timer
         button = (Button)findViewById(R.id.id);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +45,14 @@ public class MainActivity extends AppCompatActivity {
         });
         chronometer = findViewById(R.id.chronometer);
     }
+
+    //Projects button
     private void listprojectsActivity() {
         Intent intent = new Intent(this, listprojectsActivity.class);
         startActivity(intent);
     }
+
+    //Start tracking time
     public void startChronometer(View v){
         if(!running){
             chronometer.setBase(SystemClock.elapsedRealtime() - offsetPause);
@@ -65,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Convert to readable format for export
     String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(saveTime),
             TimeUnit.MILLISECONDS.toMinutes(saveTime) % TimeUnit.HOURS.toMinutes(1),
             TimeUnit.MILLISECONDS.toSeconds(saveTime) % TimeUnit.MINUTES.toSeconds(1));
 
+    //Pause tracking time
     public void pauseChronometer(View v){
         if(running){
             chronometer.stop();
@@ -77,13 +75,10 @@ public class MainActivity extends AppCompatActivity {
             if (elapsedMillis > 60000) {
 
             }
-             elapsedMillis = (int) (SystemClock.elapsedRealtime() - chronometer.getBase());
+            elapsedMillis = (int) (SystemClock.elapsedRealtime() - chronometer.getBase());
             elapsedSec = elapsedMillis / 1000;
             elapsedMin = elapsedSec / 60;
             elapsedHour = elapsedMin / 60;
-
-          // elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-
             saveTime = SystemClock.elapsedRealtime() - chronometer.getBase();
 
             running = false;
@@ -94,8 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
+    //Stop tracking time
     public void resetChronometer(View v){
         chronometer.stop();
         chronometer.setBase(SystemClock.elapsedRealtime());
@@ -104,28 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-
-   // int elapsedMillis = 30;
-
-//    public long elapsedMillis = saveTime;
-
-
     //Export to CSV
     public void export(View view){
         StringBuilder data = new StringBuilder();
         data.append("Time Spent Working");
-//        for(int i = 0; i < 5; i++) {
-//            data.append("\n" + String.valueOf(i) + "." + String.valueOf(i * i));
-//        }
-
-    data.append("\n" + String.valueOf(elapsedMin + ":" + elapsedSec + ":" + elapsedMillis) );
-        //data.append("\n" + elapsedMillis);
-
-
         data.append("\n" + hms);
-
         try{
             FileOutputStream out = openFileOutput("data.csv", Context.MODE_PRIVATE);
             out.write((data.toString()).getBytes());
@@ -145,5 +122,4 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 }

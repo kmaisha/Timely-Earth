@@ -8,7 +8,6 @@ import android.widget.TextView;
 import java.util.Random;
 
 
-
 public class StartupActivity extends AppCompatActivity {
 
     @Override
@@ -16,12 +15,12 @@ public class StartupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup);
 
-      //Generate random number between 1 and 5
+        //Generate random number between 1 and 5
         final int min = 1;
         final int max = 5;
         final int random = new Random().nextInt((max - min) + 1) + min;
 
-        //Select quote
+        //Select random quote
         String randomQuote = "";
 
        switch (random)
@@ -54,6 +53,7 @@ public class StartupActivity extends AppCompatActivity {
     }
 
     public void whenButtonClicked(View view) {
+
         //Transition to listprojectActivity
         Intent my_intent = new Intent(getBaseContext(), listprojectsActivity.class);
         startActivity(my_intent);
